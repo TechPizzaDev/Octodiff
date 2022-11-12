@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFrameworks>netstandard2.0;net462</TargetFrameworks>
+    <TargetFrameworks>net6.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <AssemblyName>Octodiff</AssemblyName>
     <PackageId>Octopus.Octodiff</PackageId>
@@ -14,18 +14,11 @@
     <RepositoryType>git</RepositoryType>
     <RepositoryUrl>https://github.com/OctopusDeploy/Octodiff/</RepositoryUrl>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-    <Description>100% C# implementation of remote delta compression based on the rsync algorithm</Description>
+    <Description>C# implementation of remote delta compression based on the rsync algorithm</Description>
     <Product>Octodiff</Product>
+    <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)" />
   </ItemGroup>
-  
-
-  <PropertyGroup Condition=" '$(TargetFramework)' == 'net462' ">
-    <OutputType>Exe</OutputType>
-    <PlatformTarget>anycpu</PlatformTarget>
-  </PropertyGroup>
-
-
 </Project>

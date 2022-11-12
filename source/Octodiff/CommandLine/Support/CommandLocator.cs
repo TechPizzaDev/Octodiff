@@ -39,19 +39,11 @@ namespace Octodiff.CommandLine.Support
         }
 
         IEnumerable<Type> assemblyCommands =>
-#if NET40
-            typeof(CommandLocator).Assembly.GetTypes().Where(t => typeof(ICommand).IsAssignableFrom(t));
-#else
             typeof(CommandLocator).GetTypeInfo().Assembly.GetTypes().Where(t => typeof(ICommand).GetTypeInfo().IsAssignableFrom(t));
-#endif
 
         ICommandMetadata GetCommandAttribute(Type type)
         {
-#if NET40
-            return (ICommandMetadata)type.GetCustomAttributes(typeof(CommandAttribute), true).FirstOrDefault();
-#else
             return (ICommandMetadata)type.GetTypeInfo().GetCustomAttributes(typeof(CommandAttribute), true).FirstOrDefault();
-#endif
         }
     }
 }
