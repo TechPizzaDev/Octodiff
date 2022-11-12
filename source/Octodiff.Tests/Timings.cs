@@ -1,7 +1,6 @@
 using System;
 using System.Diagnostics;
 using System.IO;
-using System.Security.Cryptography;
 using NUnit.Framework;
 using Octodiff.Tests.Util;
 
@@ -16,15 +15,17 @@ namespace Octodiff.Tests
         [TestCase("SmallPackage100mb.zip", 1000)]
         public void ExecuteWithTimings(string name, int numberOfFiles)
         {
-            var newName = Path.ChangeExtension(name, "2.zip");
-            var copyName = Path.ChangeExtension(name, "2_out.zip");
+            string newName = RegisterFile(Path.ChangeExtension(name, "2.zip"));
+            string copyName = RegisterFile(Path.ChangeExtension(name, "2_out.zip"));
+            string sigName = RegisterFile(name + ".sig");
+            string deltaName = RegisterFile(name + ".delta");
 
-            Time("Package creation", () => PackageGenerator.GeneratePackage(name, numberOfFiles));
+            Time("Package creation", () => PackageGenerator.GeneratePackage(RegisterFile(name), numberOfFiles));
             Time("Package modification", () => PackageGenerator.ModifyPackage(name, newName, (int)(0.33 * numberOfFiles), (int)(0.10 * numberOfFiles)));
-            Time("Signature creation", () => Run("signature " + name + " " + name + ".sig"));
-            Time("Delta creation", () => Run("delta " + name + ".sig " + newName + " " + name + ".delta"));
-            Time("Patch application", () => Run("patch " + name + " " + name + ".delta" + " " + copyName));
-            Time("Patch application (no verify)", () => Run("patch " + name + " " + name + ".delta" + " " + copyName + " --skip-verification"));
+            Time("Signature creation", () => Run("signature " + name + " " + sigName));
+            Time("Delta creation", () => Run("delta " + sigName + " " + newName + " " + deltaName));
+            Time("Patch application", () => Run("patch " + name + " " + deltaName + " " + copyName));
+            Time("Patch application (no verify)", () => Run("patch " + name + " " + deltaName + " " + copyName + " --skip-verification"));
         }
 
         static void Time(string task, Action callback)

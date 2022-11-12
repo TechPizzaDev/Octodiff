@@ -10,14 +10,15 @@ namespace Octodiff.Tests
     {
         static Random r = new Random();
 
-        public static void GeneratePackage(string fileName, int numberOfFiles = 10, int averageFileSize = 100*1024)
+        public static void GeneratePackage(string fileName, int numberOfFiles = 10, int averageFileSize = 100 * 1024)
         {
+            var buffer = new byte[averageFileSize];
+
             var fullPath = Path.GetFullPath(fileName);
             using (var package = ZipPackage.Open(fullPath, FileMode.Create))
             {
                 for (int i = 0; i < numberOfFiles; i++)
                 {
-                    var buffer = new byte[averageFileSize];
                     var part = package.CreatePart(new Uri("/" + Guid.NewGuid(), UriKind.Relative), "text/plain");
                     using (var partStream = part.GetStream(FileMode.Create))
                     {
@@ -28,15 +29,16 @@ namespace Octodiff.Tests
             }
         }
 
-        public static void ModifyPackage(string fileName, string newFileName, int filesToAdd, int filesToRemove, int averageFileSize = 100*1024)
+        public static void ModifyPackage(string fileName, string newFileName, int filesToAdd, int filesToRemove, int averageFileSize = 100 * 1024)
         {
+            var buffer = new byte[averageFileSize];
+
             File.Copy(fileName, newFileName, true);
             var fullPath = Path.GetFullPath(newFileName);
             using (var package = ZipPackage.Open(fullPath, FileMode.Open))
             {
                 for (int i = 0; i < filesToAdd; i++)
                 {
-                    var buffer = new byte[averageFileSize];
                     var part = package.CreatePart(new Uri("/" + Guid.NewGuid(), UriKind.Relative), "text/plain");
                     using (var partStream = part.GetStream(FileMode.Create))
                     {

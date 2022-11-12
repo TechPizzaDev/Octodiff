@@ -1,14 +1,18 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using System.Text;
+using NUnit.Framework;
 using Octopus.Platform.Util;
 
 namespace Octodiff.Tests.Util
 {
     public abstract class CommandLineFixture
     {
+        private List<string> _filesToDelete = new();
+
         protected string StdErr { get; private set; }
         protected string StdOut { get; private set; }
         protected string Output { get; private set; }
@@ -54,6 +58,27 @@ namespace Octodiff.Tests.Util
         string GetCurrentDirectory()
         {
             return Directory.GetCurrentDirectory();
+        }
+
+        protected string RegisterFile(string path)
+        {
+            _filesToDelete.Add(path);
+            return path;
+        }
+
+        [TearDown]
+        public void TearDown()
+        {
+            foreach (string file in _filesToDelete)
+            {
+                try
+                {
+                    File.Delete(file);
+                }
+                catch
+                {
+                }
+            }
         }
     }
 }

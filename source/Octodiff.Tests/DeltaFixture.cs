@@ -16,12 +16,14 @@ namespace Octodiff.Tests
         [TestCase("SmallPackage100mb.zip", 1000)]
         public void DeltaOfUnchangedFileShouldResultInJustCopySegment(string name, int numberOfFiles)
         {
-            PackageGenerator.GeneratePackage(name, numberOfFiles);
+            PackageGenerator.GeneratePackage(RegisterFile(name), numberOfFiles);
 
-            Run("signature " + name + " " + name + ".sig");
+            string sigName = RegisterFile(name + ".sig");
+            Run("signature " + name + " " + sigName);
             Assert.That(ExitCode, Is.EqualTo(0));
 
-            Run("delta " + name + ".sig " + name + " " + name + ".delta");
+            string deltaName = RegisterFile(name + ".delta");
+            Run("delta " + sigName + " " + name + " " + deltaName);
             Assert.That(ExitCode, Is.EqualTo(0));
 
             Run("explain-delta " + name + ".delta");
@@ -35,26 +37,28 @@ namespace Octodiff.Tests
         [TestCase("SmallPackage100mb.zip", 1000)]
         public void DeltaOfChangedFileShouldResultInNewDataSegments(string name, int numberOfFiles)
         {
-            PackageGenerator.GeneratePackage(name, numberOfFiles);
+            PackageGenerator.GeneratePackage(RegisterFile(name), numberOfFiles);
 
-            Run("signature " + name + " " + name + ".sig");
+            string sigName = RegisterFile(name + ".sig");
+            Run("signature " + name + " " + sigName);
             Assert.That(ExitCode, Is.EqualTo(0));
 
-            var newName = Path.ChangeExtension(name, "2.zip");
-            PackageGenerator.ModifyPackage(name, newName, (int) (0.33*numberOfFiles), (int) (0.10*numberOfFiles));
+            string newName = RegisterFile(Path.ChangeExtension(name, "2.zip"));
+            PackageGenerator.ModifyPackage(name, newName, (int)(0.33 * numberOfFiles), (int)(0.10 * numberOfFiles));
 
-            Run("delta " + name + ".sig " + newName + " " + name + ".delta");
+            string deltaName = RegisterFile(name + ".delta");
+            Run("delta " + sigName + " " + newName + " " + deltaName);
             Assert.That(ExitCode, Is.EqualTo(0));
 
-            Run("explain-delta " + name + ".delta");
+            Run("explain-delta " + deltaName);
             Assert.That(Regex.IsMatch(Output, $"Copy: ([0-9A-F]+) to ([0-9A-F]+){Environment.NewLine}"));
             Assert.That(Regex.IsMatch(Output, "Data: \\(([0-9]+) bytes\\)"));
 
             var originalSize = new FileInfo(name).Length;
             var newSize = new FileInfo(newName).Length;
-            var deltaSize = new FileInfo(name + ".delta").Length;
+            var deltaSize = new FileInfo(deltaName).Length;
             var actualDifference = Math.Abs(newSize - originalSize);
-            var deltaToActualRatio = (double) deltaSize/actualDifference;
+            var deltaToActualRatio = (double)deltaSize / actualDifference;
             Trace.WriteLine(string.Format("Delta ratio: {0:n3}", deltaToActualRatio));
             Assert.IsTrue(deltaSize * 2 < newSize, "Delta should be at least half the new file size");
             Assert.IsTrue(0.80 <= deltaToActualRatio && deltaToActualRatio <= 1.60, "Delta should be pretty close to the actual file differences");
