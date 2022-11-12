@@ -1,6 +1,7 @@
-﻿Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 15
-VisualStudioVersion = 15.0.26730.12
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33103.184
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Octodiff", "Octodiff\Octodiff.csproj", "{BBA7CDC2-DE25-4131-89F2-506712178FC8}"
 EndProject
@@ -8,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Octodiff.Tests", "Octodiff.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\build\_build.csproj", "{D7FD8AAD-2386-4BC8-BDBB-B2CFA63DBE57}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Octodiff.Benchmarks", "Octodiff.Benchmarks\Octodiff.Benchmarks.csproj", "{72DD74E4-7B7C-43DF-BF85-92FC8F64682B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Octodiff.Benchmarks", "Octodiff.Benchmarks\Octodiff.Benchmarks.csproj", "{72DD74E4-7B7C-43DF-BF85-92FC8F64682B}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Octodiff.CommandLine", "Octodiff.CommandLine\Octodiff.CommandLine.csproj", "{DD84C941-937B-4993-BF30-EE8D35ED54DA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -16,8 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{D7FD8AAD-2386-4BC8-BDBB-B2CFA63DBE57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D7FD8AAD-2386-4BC8-BDBB-B2CFA63DBE57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BBA7CDC2-DE25-4131-89F2-506712178FC8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{BBA7CDC2-DE25-4131-89F2-506712178FC8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BBA7CDC2-DE25-4131-89F2-506712178FC8}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -26,10 +27,16 @@ Global
 		{B7E95BD1-676E-4AC7-9089-3270392776BA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B7E95BD1-676E-4AC7-9089-3270392776BA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B7E95BD1-676E-4AC7-9089-3270392776BA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D7FD8AAD-2386-4BC8-BDBB-B2CFA63DBE57}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D7FD8AAD-2386-4BC8-BDBB-B2CFA63DBE57}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72DD74E4-7B7C-43DF-BF85-92FC8F64682B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{72DD74E4-7B7C-43DF-BF85-92FC8F64682B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72DD74E4-7B7C-43DF-BF85-92FC8F64682B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72DD74E4-7B7C-43DF-BF85-92FC8F64682B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DD84C941-937B-4993-BF30-EE8D35ED54DA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DD84C941-937B-4993-BF30-EE8D35ED54DA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DD84C941-937B-4993-BF30-EE8D35ED54DA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DD84C941-937B-4993-BF30-EE8D35ED54DA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

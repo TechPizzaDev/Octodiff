@@ -2,11 +2,10 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Octodiff.CommandLine;
 using Octodiff.CommandLine.Support;
 using Octodiff.Core;
 
-namespace Octodiff
+namespace Octodiff.CommandLine
 {
     public class Program
     {
@@ -16,7 +15,7 @@ namespace Octodiff
             var commandName = ExtractCommand(args, out commandArguments);
             var locator = new CommandLocator();
             var command = locator.Find(commandName);
-            
+
             if (command == null)
             {
                 locator.Create(locator.Find("help")).Execute(commandArguments);
@@ -31,7 +30,7 @@ namespace Octodiff
             catch (OptionException ex)
             {
                 WriteError(ex);
-                locator.Create(locator.Find("help")).Execute(new[] {commandName});
+                locator.Create(locator.Find("help")).Execute(new[] { commandName });
                 return 4;
             }
             catch (UsageException ex)

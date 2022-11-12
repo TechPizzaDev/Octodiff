@@ -5,6 +5,7 @@ using System.IO;
 using System.Reflection;
 using System.Text;
 using NUnit.Framework;
+using Octodiff.CommandLine;
 using Octopus.Platform.Util;
 
 namespace Octodiff.Tests.Util
@@ -52,7 +53,7 @@ namespace Octodiff.Tests.Util
 
         string GetExePath()
         {
-            return Path.Combine(Path.GetDirectoryName(new Uri(typeof(CommandLineFixture).GetTypeInfo().Assembly.Location).LocalPath), "Octodiff.Tests.dll");
+            return new Uri(typeof(Program).GetTypeInfo().Assembly.Location).LocalPath;
         }
 
         string GetCurrentDirectory()

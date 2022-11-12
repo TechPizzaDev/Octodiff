@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFrameworks>net6.0</TargetFrameworks>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <AssemblyName>Octodiff</AssemblyName>
+    <AssemblyName>Octodiff.Core</AssemblyName>
     <PackageId>Octopus.Octodiff</PackageId>
     <GenerateAssemblyTitleAttribute>false</GenerateAssemblyTitleAttribute>
     <PackageProjectUrl>https://github.com/OctopusDeploy/Octodiff</PackageProjectUrl>
@@ -16,7 +16,6 @@
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <Description>C# implementation of remote delta compression based on the rsync algorithm</Description>
     <Product>Octodiff</Product>
-    <OutputType>Exe</OutputType>
   </PropertyGroup>
   <ItemGroup>
     <None Include="..\..\LICENSE.txt" Pack="true" PackagePath="$(PackageLicenseFile)" />
